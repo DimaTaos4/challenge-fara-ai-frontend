@@ -19,7 +19,6 @@ const Navigation = () => {
             <Route element={<ProtectedRoute />}>
                 <Route path="/analysis" element={<AnalysisPage />} />
             </Route>
-
             <Route element={<AdminRoute />}>
                 <Route path="/admin/retailers" element={<RetailerSelectPage />} />
             </Route>

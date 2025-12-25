@@ -1,0 +1,84 @@
+.retSelPage {
+    min-height: 100vh;
+    padding: 60px 20px;
+    background: radial-gradient(circle at top,
+            #e9f9f0 0%,
+            #c7ecd9 40%,
+            #9bd9b6 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.retSelPage h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #0f5132;
+    text-align: center;
+}
+
+.retSelPage span {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #0b6b3a;
+}
+
+.error {
+    color: #d32f2f;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 10px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(211, 47, 47, 0.2);
+}
+
+.retSelPage ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 520px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+.retSelPage li {
+    padding: 18px 22px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f5132;
+    cursor: pointer;
+    box-shadow: 0 15px 30px rgba(15, 81, 50, 0.18);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.retSelPage li::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(15, 157, 88, 0.15),
+            rgba(11, 107, 58, 0.15));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.retSelPage li:hover::before {
+    opacity: 1;
+}
+
+.retSelPage li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 25px 50px rgba(15, 81, 50, 0.3);
+}
+
+.retSelPage li:active {
+    transform: scale(0.98);
+}

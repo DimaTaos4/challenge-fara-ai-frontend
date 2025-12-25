@@ -4,20 +4,14 @@ export const useAuthToken = () => {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
 
-    let decoded = null;
+    if (!token) return { token: null };
 
-    if (token) {
-        try {
-            decoded = jwtDecode(token);
-        } catch {
-            decoded = null;
-        }
-    }
+    const decoded = jwtDecode(token);
 
     return {
         token,
         username,
-        isAdmin: decoded?.isAdmin,
-        retailerKey: decoded?.retailerKey,
+        isAdmin: decoded.isAdmin,
+        retailerKey: decoded.retailerKey,
     };
 };
