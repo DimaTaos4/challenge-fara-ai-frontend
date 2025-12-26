@@ -28,16 +28,13 @@ function LoginPage() {
 
             const { token, username } = response;
 
-            // 1️⃣ сохраняем
             localStorage.setItem("token", token);
             localStorage.setItem("username", username);
 
-            // 2️⃣ читаем payload
             const decoded = jwtDecode(token);
 
             reset();
 
-            // 3️⃣ redirect
             if (decoded.isAdmin) {
                 navigate("/admin/retailers", { replace: true });
             } else {

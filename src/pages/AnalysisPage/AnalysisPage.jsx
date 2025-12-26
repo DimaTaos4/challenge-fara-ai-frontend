@@ -1,21 +1,28 @@
 import styles from './AnalysisPage.module.css';
 import { useAuthToken } from '../../shared/hooks/useAuthToken';
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { getAnalysisApi } from '../../shared/api/analysisRoutes';
 import { useState, useEffect } from 'react';
 
+import LogoutButton from '../../shared/components/LogoutButton/LogoutButton';
 
 const AnalysisPage = () => {
-    const { username, isAdmin, retailerKey } = useAuthToken();
-    const [analysis, setAnalysis] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const { username, isAdmin } = useAuthToken();
+
+    const [analysis, setAnalysis] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const [searchParams] = useSearchParams();
+    const retailerKey = searchParams.get("retailerKey");
 
     useEffect(() => {
+        if (isAdmin && !retailerKey) return;
+
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const data = await getAnalysisApi();
+                const data = await getAnalysisApi(retailerKey);
                 setAnalysis(data);
             } catch (error) {
                 console.error(error);
@@ -26,25 +33,11 @@ const AnalysisPage = () => {
         };
 
         fetchData();
-    }, []);
-    useEffect(() => {
-        console.log(analysis);
-    }, [analysis])
+    }, [isAdmin, retailerKey]);
 
     if (isAdmin && !retailerKey) {
         return <Navigate to="/admin/retailers" replace />;
     }
-    const element = analysis.map(data => (
-        <li key={data.id} className={styles.analysisItem}>
-            <span className={styles.month}>
-                {data.month}
-            </span>
-            <span className={styles.revenue}>
-                {data.revenue}
-                <span className={styles.currency}>€</span>
-            </span>
-        </li>
-    ))
 
     return (
         <div className={styles.analysisPage}>
@@ -64,10 +57,19 @@ const AnalysisPage = () => {
             {error && <p className={styles.error}>{error}</p>}
 
             <ul className={styles.analysisList}>
-                {element}
+                {analysis.map(item => (
+                    <li key={item.id} className={styles.analysisItem}>
+                        <span className={styles.month}>{item.month}</span>
+                        <span className={styles.revenue}>
+                            {item.revenue}
+                            <span className={styles.currency}>€</span>
+                        </span>
+                    </li>
+                ))}
             </ul>
-        </div>
 
+            <LogoutButton />
+        </div>
     );
 };
 

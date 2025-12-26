@@ -1,17 +1,18 @@
 import styles from "./RetailerSelectPage.module.css"
-import { useAuthToken } from "../../shared/hooks/useAuthToken"
 
 import { useEffect, useState } from "react"
 
 import { getAllRetailers } from "../../shared/api/retailers/retailersRoutes"
 
-const RetailerSelectPage = () => {
+import LogoutButton from "../../shared/components/LogoutButton/LogoutButton"
 
+import { useNavigate } from "react-router-dom";
+
+const RetailerSelectPage = () => {
+    const navigate = useNavigate()
     const [retailersData, setRetailersData] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-
-    const { username } = useAuthToken()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,16 +34,25 @@ const RetailerSelectPage = () => {
         console.log(retailersData);
     }, [retailersData])
 
-    const element = retailersData.map(retailer => <li key={retailer.key}>{retailer.name}</li>)
+    const onSelectRetailer = (key) => {
+        navigate(`/analysis?retailerKey=${key}`)
+    }
+
+    const element = retailersData.map(retailer => <li key={retailer.key} onClick={() => onSelectRetailer(retailer.key)}>{retailer.name}</li>)
+
+
 
     return (
         <div className={styles.retSelPage}>
             {loading && <span>Loading...</span>}
-            <h3>{username}, select one of retailers</h3>
+            <p className={styles.hint}>
+                Please choose a retailer to see the analysis.
+            </p>
             {error && <p className={styles.error}>{error}</p>}
             <ul>
                 {element}
             </ul>
+            <LogoutButton />
         </div>
     )
 }
