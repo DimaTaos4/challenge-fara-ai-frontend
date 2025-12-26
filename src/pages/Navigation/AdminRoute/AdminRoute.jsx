@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuthToken } from "../../shared/hooks/useAuthToken";
+import { useAuthToken } from "../../../shared/hooks/useAuthToken";
 const AdminRoute = () => {
     const { token, isAdmin } = useAuthToken();
 

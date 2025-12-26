@@ -7,7 +7,7 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
-import AdminRoute from "../AdminRoute/AdminRoute";
+import AdminRoute from "./AdminRoute/AdminRoute";
 import RetailerSelectPage from "../RetailerSelectPage/RetailerSelectPage";
 const Navigation = () => {
     return (
