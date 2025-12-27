@@ -1,7 +1,7 @@
 import styles from './AnalysisPage.module.css';
 import { useAuthToken } from '../../shared/hooks/useAuthToken';
-import { Navigate, useSearchParams } from "react-router-dom";
-import { getAnalysisApi } from '../../shared/api/analysisRoutes';
+import { Navigate, useSearchParams, useNavigate } from "react-router-dom";
+import { getAnalysisApi } from '../../shared/api/analysis/analysisRoutes';
 import { useState, useEffect } from 'react';
 
 import LogoutButton from '../../shared/components/LogoutButton/LogoutButton';
@@ -15,6 +15,8 @@ const AnalysisPage = () => {
 
     const [searchParams] = useSearchParams();
     const retailerKey = searchParams.get("retailerKey");
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (isAdmin && !retailerKey) return;
@@ -39,6 +41,16 @@ const AnalysisPage = () => {
         return <Navigate to="/admin/retailers" replace />;
     }
 
+    const element = analysis.map(item => (
+        <li key={item.id} className={styles.analysisItem}>
+            <span className={styles.month}>{item.month}</span>
+            <span className={styles.revenue}>
+                {item.revenue}
+                <span className={styles.currency}>€</span>
+            </span>
+        </li>
+    ))
+
     return (
         <div className={styles.analysisPage}>
             <h2 className={styles.title}>Hello {username}</h2>
@@ -57,17 +69,14 @@ const AnalysisPage = () => {
             {error && <p className={styles.error}>{error}</p>}
 
             <ul className={styles.analysisList}>
-                {analysis.map(item => (
-                    <li key={item.id} className={styles.analysisItem}>
-                        <span className={styles.month}>{item.month}</span>
-                        <span className={styles.revenue}>
-                            {item.revenue}
-                            <span className={styles.currency}>€</span>
-                        </span>
-                    </li>
-                ))}
+                {element}
             </ul>
 
+            {isAdmin && (
+                <button className={styles.btnChangeRetailer} onClick={() => navigate("/admin/retailers")}>
+                    Change retailer
+                </button>
+            )}
             <LogoutButton />
         </div>
     );

@@ -44,3 +44,30 @@
     color: #0f5132;
     opacity: 0.9;
 }
+
+.btnGoHome {
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 32px;
+
+    background: linear-gradient(135deg, #64cf9d, #57b98b);
+    color: #224d38;
+
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(100, 207, 157, 0.25);
+    transition: all 0.25s ease;
+}
+
+.btnGoHome:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(100, 207, 157, 0.35);
+}
+
+.btnGoHome:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(100, 207, 157, 0.25);
+}

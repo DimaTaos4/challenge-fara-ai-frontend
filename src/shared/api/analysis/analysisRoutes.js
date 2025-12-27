@@ -1,4 +1,4 @@
-import { backendInstance } from "./backendInstance";
+import { backendInstance } from "../backendInstance";
 
 
 export const getAnalysisApi = async (retailerKey) => {

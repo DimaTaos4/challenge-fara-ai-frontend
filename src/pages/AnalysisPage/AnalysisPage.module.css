@@ -87,3 +87,30 @@
     margin-left: 4px;
     opacity: 0.85;
 }
+
+.btnChangeRetailer {
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 32px;
+
+    background: linear-gradient(135deg, #d5986c, #e18b52);
+    color: #290d08;
+
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(223, 78, 5, 0.25);
+    transition: all 0.25s ease;
+}
+
+.btnChangeRetailer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(209, 94, 6, 0.35);
+}
+
+.btnChangeRetailer:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(224, 103, 10, 0.25);
+}
